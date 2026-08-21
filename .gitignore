@@ -1,0 +1,6 @@
+car-rental-frontend/node_modules
+car-rental-frontend/build
+car-rental-frontend/dist
+car-rental-backend/vendor
+car-rental-backend/.env
+.DS_Store
