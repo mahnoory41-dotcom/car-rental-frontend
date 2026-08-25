@@ -4,19 +4,32 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Car;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin User Create
-        User::create([
-            'name' => 'System Admin',
-            'email' => 'admin@rental.com',
-            'password' => bcrypt('admin123'),
-            'role' => 'admin'
-        ]);
+// Fresh Admin User
+        User::updateOrCreate(
+            ['email' => 'admin@rental.com'],
+            [
+                'name' => 'System Admin',
+                'password' => Hash::make('admin123'),
+                'role' => 'admin'
+            ]
+        );
+
+        // Fresh Customer User
+        User::updateOrCreate(
+            ['email' => 'user@rental.com'],
+            [
+                'name' => 'John Doe',
+                'password' => Hash::make('user123'),
+                'role' => 'customer'
+            ]
+        );
 
         // Sample Cars Data
         Car::create([

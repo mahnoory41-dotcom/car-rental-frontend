@@ -75,18 +75,17 @@ class CarController extends Controller
         }
 
         $fields = $request->validate([
-            'name' => 'sometimes|required|string',
-            'brand' => 'sometimes|required|string',
-            'type' => 'sometimes|required|string',
-            'price_per_day' => 'sometimes|required|numeric',
-            'image' => 'nullable',
-            'seats' => 'sometimes|required|integer',
-            'transmission' => 'sometimes|required|string',
-            'fuel_type' => 'sometimes|required|string',
-            'description' => 'nullable|string',
-            'is_available' => 'boolean'
-        ]);
-
+    'name' => 'sometimes|required|string|max:255',
+    'brand' => 'sometimes|required|string|max:255',
+    'type' => 'sometimes|required|string|max:255',
+    'price_per_day' => 'sometimes|required|numeric|min:0',
+    'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+    'seats' => 'sometimes|required|integer|min:1',
+    'transmission' => 'sometimes|required|string|max:100',
+    'fuel_type' => 'sometimes|required|string|max:100',
+    'description' => 'nullable|string',
+    'is_available' => 'sometimes|boolean',
+]);
         if ($request->hasFile('image')) {
             if ($car->image && !filter_var($car->image, FILTER_VALIDATE_URL)) {
                 Storage::disk('public')->delete(str_replace(asset('storage/'), '', $car->image));
